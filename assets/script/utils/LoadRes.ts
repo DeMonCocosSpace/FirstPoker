@@ -37,7 +37,7 @@ export class LoadRes extends Component {
 
     public onLoadPokerAtlas(callback: (as: SpriteAtlas) => void): void {
         if (this.pokerAtlas == null) {
-            this.loadTextureRes<SpriteAtlas>("poker", (data: SpriteAtlas) => {
+            this.loadTextureRes("poker", (data: SpriteAtlas) => {
                 this.pokerAtlas = data;
                 callback(data);
             });
@@ -57,16 +57,19 @@ export class LoadRes extends Component {
         }
     }
 
-    public loadTextureRes<T extends Asset>(resName: string, callback: (t: T) => void) {
+    public loadTextureRes(resName: string, callback: (t: SpriteAtlas) => void) {
         if (this.textureBundle == null) {
             assetManager.loadBundle("texture", (error, data: AssetManager.Bundle) => {
+                log("loadTextureRes " + error);
                 this.textureBundle = data;
-                this.textureBundle.load(resName, (error, data: T) => {
+                this.textureBundle.load(resName, SpriteAtlas, (error, data: SpriteAtlas) => {
+                    log("loadTextureRes " + error);
                     callback(data);
                 });
             });
         } else {
-            this.textureBundle.load(resName, (error, data: T) => {
+            this.textureBundle.load(resName, SpriteAtlas, (error, data: SpriteAtlas) => {
+                log("loadTextureRes " + error);
                 callback(data);
             });
         }
@@ -75,13 +78,15 @@ export class LoadRes extends Component {
     public loadPrefabRes(resName: string, callback: (prefab: Prefab) => void) {
         if (this.prefabBundle == null) {
             assetManager.loadBundle("prefab", (error, data: AssetManager.Bundle) => {
+                log("loadPrefabRes " + error);
                 this.prefabBundle = data;
                 this.prefabBundle.load(resName, Prefab, (error, data: Prefab) => {
                     callback(data);
                 });
             });
         } else {
-            this.prefabBundle.load(resName, (error, data: T) => {
+            this.prefabBundle.load(resName, Prefab, (error, data: Prefab) => {
+                log("loadPrefabRes " + error);
                 callback(data);
             });
         }
