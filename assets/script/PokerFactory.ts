@@ -44,6 +44,15 @@ export class PokerFactory extends Component {
         this.dispatchPoker(3);
     }
 
+    /**
+     * 开牌
+     */
+    public openPoker() {
+        this.pokerNodes.forEach((v) => {
+            v.showValue();
+        });
+    }
+
     //生成牌堆
     private createAllPokers() {
         if (this.allPokers.length > 0) return;
@@ -169,7 +178,7 @@ export class PokerFactory extends Component {
 
         pokerCtrl.init(pokerValue);
 
-        pokerCtrl.showValue();
+        //pokerCtrl.showValue();
 
         return pokerCtrl;
     }
@@ -178,6 +187,9 @@ export class PokerFactory extends Component {
     public destPoker() {
         this.pokerNodes.forEach((v) => {
             this.pokerPool.put(v.node);
+            v.node.angle = 0;
+            v.showBackground();
+            this.game.node.removeChild(v.node);
         });
         //重置
         this.pokerNodes = new Array();
