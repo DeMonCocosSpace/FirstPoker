@@ -1,7 +1,7 @@
 {
   "general": {
     "designResolution": {
-      "fitHeight": true
+      "fitHeight": false
     }
   }
 }
