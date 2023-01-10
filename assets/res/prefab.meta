@@ -6,8 +6,12 @@
   "files": [],
   "subMetas": {},
   "userData": {
-    "compressionType": {},
+    "compressionType": {
+      "web-mobile": "merge_all_json",
+      "android": "merge_all_json"
+    },
     "isRemoteBundle": {},
-    "isBundle": true
+    "isBundle": true,
+    "priority": 4
   }
 }

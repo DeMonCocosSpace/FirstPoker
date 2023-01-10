@@ -234,7 +234,7 @@
         "__id__": 7
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 10
@@ -649,6 +649,9 @@
     },
     "_enabled": true,
     "__prefab": null,
+    "btn": {
+      "__id__": 6
+    },
     "btnLabel": {
       "__id__": 9
     },

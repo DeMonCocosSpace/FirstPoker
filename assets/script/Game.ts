@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, log, Label } from "cc";
+import { _decorator, Component, Node, log, Label, ProgressBar } from "cc";
 import { PokerFactory } from "./PokerFactory";
 import { LoadRes } from "./utils/LoadRes";
 
@@ -6,12 +6,18 @@ const { ccclass, property } = _decorator;
 
 @ccclass("Game")
 export class Game extends Component {
+    @property(Node)
+    btn: Node = null;
     @property(Label)
     btnLabel: Label = null;
+    @property(ProgressBar)
+    progressBar: ProgressBar = null;
 
     private hasHandout = false;
 
     onLoad() {
+        this.progressBar.node.active = true;
+        this.btn.active = false;
         LoadRes.getInstance().loadNeedRes(() => {
             this.enterGame();
         });
@@ -19,6 +25,8 @@ export class Game extends Component {
 
     private enterGame() {
         log("enterGame");
+        this.btn.active = true;
+        this.progressBar.node.active = false;
         this.node.addComponent(PokerFactory).init(this);
     }
 
@@ -34,5 +42,12 @@ export class Game extends Component {
         }
     }
 
-    update(deltaTime: number) {}
+    private progress = 0;
+    update(deltaTime: number) {
+        this.progress += deltaTime;
+        if (this.progress > 1) {
+            this.progress = 0;
+        }
+        this.progressBar.progress = this.progress;
+    }
 }
